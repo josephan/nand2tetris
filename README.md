@@ -44,3 +44,11 @@ Given a Data Flip Flop chip and all chips built in Project 1 and Project 2, buil
 * RAM5K
 * RAM16K
 * PC
+
+## Project 4
+Write the following programs in the machine language, HACK:
+### Mult.asm
+Calculate and store the product of RAM[0] and RAM[1] in RAM[2]
+### Fill.asm
+When a user is pressing any key on the keyboard, fill the screen black.
+When a user is not pressing any key, fill the screen white.

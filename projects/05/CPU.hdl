@@ -39,5 +39,53 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+
+
+    Not(in=instruction[15], out=notA);
+    Mux16(a=aluOutForMux, b=instruction, sel=notA, out=ARegister);
+
+
+    And(a=instruction[15], b=instruction[5], out=cInstructionStoreA);
+    Or(a=notA, b=cInstructionStoreA, out=aRegisterLoad);
+    ARegister(in=ARegister, load=aRegisterLoad, out=PCin, out[0..14]=addressM, out=aRegisterOut);
+
+
+    And(a=instruction[15], b=instruction[12], out=aluMuxSel);
+    Mux16(a=aRegisterOut, b=inM, sel=aluMuxSel, out=ALUy);
+    ALU(x=dRegisterOut,
+        y=ALUy,
+        zx=instruction[11],
+        nx=instruction[10],
+        zy=instruction[9],
+        ny=instruction[8],
+        f=instruction[7],
+        no=instruction[6],
+        out=outM,
+        out=aluOutForMux,
+        out=aluOutForDRegister,
+        zr=zrAlu,
+        ng=ngAlu);
+
+
+    And(a=instruction[15], b=instruction[3], out=writeM);
+
+
+    And(a=instruction[15], b=instruction[4], out=bRegisterLoad);
+    DRegister(in=aluOutForDRegister, load=bRegisterLoad, out=dRegisterOut);
+
+
+    Not(in=zrAlu, out=notZr);
+    Not(in=ngAlu, out=notNg);
+    And(a=notZr, b=notNg, out=ps);
+
+    And(a=instruction[2], b=ngAlu, out=lessThan);
+    And(a=instruction[1], b=zrAlu, out=equalTo);
+    Or(a=lessThan, b=equalTo, out=lte);
+
+    And(a=instruction[0], b=ps, out=greaterThan);
+    Or(a=lte, b=greaterThan, out=shouldJump);
+
+    And(a=instruction[15], b=shouldJump, out=jumpLoad);
+
+    PC(in=PCin, load=jumpLoad, inc=true, reset=reset, out[0..14]=pc);
 }

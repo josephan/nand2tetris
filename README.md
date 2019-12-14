@@ -62,3 +62,7 @@ With the Hack machine language specification and previously built chips, build t
 ## Project 6
 Build an Assembler that turns a Hack assembly program into Hack machine code:
 https://github.com/josephan/hack_assembler
+
+## Project 7
+Build a VM Translator that turns a VM program into Hack assembly:
+https://github.com/josephan/vm_translator

@@ -7,7 +7,7 @@ M=D
 
 // call Sys.init 0
 // push return-address
-@Sys.init$ret.2
+@Sys.init$ret.1
 D=A
 @SP
 A=M
@@ -64,7 +64,7 @@ M=D
 @Sys.init
 0;JMP
 // (return-address)
-(Sys.init$ret.2)
+(Sys.init$ret.1)
 
 // function Main.fibonacci 0
 (Main.fibonacci)
@@ -99,18 +99,18 @@ A=M
 D=M
 A=A-1
 D=M-D
-@LT_6
+@LT_4
 D;JLT
 @SP
 A=M-1
 M=0
-@END_6
+@END_4
 0;JMP
-(LT_6)
+(LT_4)
 @SP
 A=M-1
 M=-1
-(END_6)
+(END_4)
 
 // if-goto IF_TRUE
 @SP
@@ -232,7 +232,7 @@ M=D
 
 // call Main.fibonacci 1
 // push return-address
-@Main.fibonacci$ret.16
+@Main.fibonacci$ret.14
 D=A
 @SP
 A=M
@@ -289,7 +289,7 @@ M=D
 @Main.fibonacci
 0;JMP
 // (return-address)
-(Main.fibonacci$ret.16)
+(Main.fibonacci$ret.14)
 
 // push argument 0
 @ARG
@@ -324,7 +324,7 @@ M=D
 
 // call Main.fibonacci 1
 // push return-address
-@Main.fibonacci$ret.20
+@Main.fibonacci$ret.18
 D=A
 @SP
 A=M
@@ -381,7 +381,7 @@ M=D
 @Main.fibonacci
 0;JMP
 // (return-address)
-(Main.fibonacci$ret.20)
+(Main.fibonacci$ret.18)
 
 // add
 @SP
@@ -463,7 +463,7 @@ M=M+1
 
 // call Main.fibonacci 1
 // push return-address
-@Main.fibonacci$ret.25
+@Main.fibonacci$ret.3
 D=A
 @SP
 A=M
@@ -520,7 +520,7 @@ M=D
 @Main.fibonacci
 0;JMP
 // (return-address)
-(Main.fibonacci$ret.25)
+(Main.fibonacci$ret.3)
 
 // label WHILE
 (WHILE)

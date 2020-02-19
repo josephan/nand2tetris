@@ -1,0 +1,43 @@
+class Food {
+  static int sideLength;
+  field int posX;
+  field int posY;
+
+  constructor Food new() {
+    let sideLength = 16;
+    let posX = Random.randRange(31);
+    let posY = Random.randRange(15);
+    return this;
+  }
+
+  method int posX() {
+    return posX;
+  }
+
+  method int posY() {
+    return posY;
+  }
+
+  method void respawn() {
+    let posX = Random.randRange(31);
+    let posY = Random.randRange(15);
+    return;
+  }
+
+  method void render() {
+    var int drawX;
+    var int drawY;
+    var int radius;
+
+    let drawX = posX * sideLength + 8;
+    let drawY = posY * sideLength + 8;
+
+    do Screen.drawCircle(drawX, drawY, 6);
+
+    return;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+  }
+}

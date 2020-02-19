@@ -1,0 +1,57 @@
+function Food.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 16
+pop static 0
+push constant 31
+call Random.randRange 1
+pop this 0
+push constant 15
+call Random.randRange 1
+pop this 1
+push pointer 0
+return
+function Food.posX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Food.posY 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Food.respawn 0
+push argument 0
+pop pointer 0
+push constant 31
+call Random.randRange 1
+pop this 0
+push constant 15
+call Random.randRange 1
+pop this 1
+push constant 0
+return
+function Food.render 3
+push argument 0
+pop pointer 0
+push this 0
+push static 0
+call Math.multiply 2
+push constant 8
+add
+pop local 0
+push this 1
+push static 0
+call Math.multiply 2
+push constant 8
+add
+pop local 1
+push local 0
+push local 1
+push constant 6
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,153 @@
+class Snake {
+  static int sideLength;
+  static int historyLength;
+  field int posX;
+  field int posY;
+  field int tailX;
+  field int tailY;
+  field int length;
+  field int direction; // 0 - up, 1 - right, 2 - down, 3 - left
+  field Array posX;
+  field Array posY;
+  
+
+  constructor Snake new() {
+    let sideLength = 16;
+    let historyLength = 512;
+    let length = 1;
+    let posX = Array.new(historyLength);
+    let posY = Array.new(historyLength);
+    let posX[0] = 0;
+    let posY[0] = 0;
+    let tailX = 0;
+    let tailY = 0;
+    let direction = 2;
+    return this;
+  }
+
+  method int headPosX() {
+    return posX[0];
+  }
+
+  method int score() {
+    return length;
+  }
+
+  method int headPosY() {
+    return posY[0];
+  }
+
+  method void render() {
+    var int drawX;
+    var int drawY;
+    var int i;
+
+    let i = 0;
+    while (i < length) {
+      let drawX = posX[i] * sideLength;
+      let drawY = posY[i] * sideLength;
+      do Screen.drawRectangle(drawX, drawY, drawX + 15, drawY + 15);
+      let i = i + 1;
+    }
+
+    return;
+  }
+
+  method void changeDirection() {
+    var int key;
+
+    let key = Keyboard.keyPressed();
+
+    // up
+    if (key = 131) {
+      if (length = 1) { let direction = 0; }
+      if (length > 1 & ~(direction = 2)) {
+        let direction = 0;
+      }
+    }
+
+    // right
+    if (key = 132) { 
+      if (length = 1) { let direction = 1; }
+      if (length > 1 & ~(direction = 3)) {
+        let direction = 1;
+      }
+    }
+
+    // down
+    if (key = 133) { 
+      if (length = 1) { let direction = 2; }
+      if (length > 1 & ~(direction = 0)) {
+        let direction = 2;
+      }
+    }
+
+    // left
+    if (key = 130) { 
+      if (length = 1) { let direction = 3; }
+      if (length > 1 & ~(direction = 1)) {
+        let direction = 3;
+      }
+    }
+    return;
+  }
+
+  method void move() {
+    var int moveX;
+    var int moveY;
+    var int i;
+
+    let i = length - 1;
+    let tailX = posX[i];
+    let tailY = posY[i];
+
+    while (i > 0) {
+      let posX[i] = posX[i - 1];
+      let posY[i] = posY[i - 1];
+      let i = i - 1;
+    }
+
+    if (direction = 0) { let moveX = 0; let moveY = -1; }
+    if (direction = 1) { let moveX = 1; let moveY = 0; }
+    if (direction = 2) { let moveX = 0; let moveY = 1; }
+    if (direction = 3) { let moveX = -1; let moveY = 0; }
+
+    let posX[0] = posX[0] + moveX;
+    let posY[0] = posY[0] + moveY;
+
+    return;
+  }
+
+  method void grow() {
+    let length = length + 1;
+
+    let posX[length - 1] = tailX;
+    let posY[length - 1] = tailY;
+
+    return;
+  }
+
+  method boolean outOfBounds() {
+    if (posX[0] < 0) { return true; }
+    if (posX[0] > 31) { return true; }
+    if (posY[0] < 0) { return true; }
+    if (posY[0] > 15) { return true; }
+    return false;
+  }
+
+  method boolean eatenSelf() {
+    var int i;
+    let i = 1;
+    while ((i > 0) & (i < length)) {
+      if ((posX[0] = posX[i]) & (posY[0] = posY[i])) {
+        return true;
+      } 
+      let i = i + 1;
+    }
+    return false;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+  }
+}

@@ -1,0 +1,52 @@
+class Game {
+  field Snake snake;
+  field Food food;
+  field boolean alive;
+
+  constructor Game new() {
+    let snake = Snake.new();
+    let food = Food.new();
+    let alive = true;
+    return this;
+  }
+
+  method void run() {
+    while (alive) {
+      do snake.changeDirection();
+      do snake.move();
+      do eatFood();
+      do checkHealth();
+      if (alive) {
+        do food.render();
+        do snake.render();
+      }
+      do Sys.wait(250);
+      do Screen.clearScreen();
+    }
+    do Output.printString("Game Over! Thanks for playing!");
+    do Output.println();
+    do Output.printString("High Score: ");
+    do Output.printInt(snake.score());
+    return;
+  }
+
+  method void eatFood() {
+    if ((snake.headPosX() = food.posX()) & (snake.headPosY() = food.posY())) {
+      do snake.grow();
+      do food.respawn();
+    }
+    return;
+  }
+
+  method void checkHealth() {
+    if (snake.outOfBounds()) { let alive = false; }
+    if (snake.eatenSelf()) { let alive = false; }
+    return;
+  }
+
+  method void dispose() {
+    do snake.dispose();
+    do food.dispose();
+    do Memory.deAlloc(this);
+  }
+}

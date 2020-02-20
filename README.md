@@ -66,3 +66,10 @@ https://github.com/josephan/hack_assembler
 ## Project 7
 Build a VM Translator that turns a VM program into Hack assembly:
 https://github.com/josephan/vm_translator
+
+## Project 8
+Complete the VM translator by adding translations for branching and function commands.
+https://github.com/josephan/vm_translator
+
+## Project 9
+Learn the Jack programming language. Create a Snake game.

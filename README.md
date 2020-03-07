@@ -73,3 +73,22 @@ https://github.com/josephan/vm_translator
 
 ## Project 9
 Learn the Jack programming language. Create a Snake game.
+
+## Project 10
+Compilers Part 1: Create the tokenizer and the parser for the Jack language.
+https://github.com/josephan/jack_analyzer
+
+## Project 11
+Compilers Part 2: Create the code generator to generate a VM program using the analyzer from project 10.
+https://github.com/josephan/jack_compiler
+
+## Projeect 12
+Implement the following classes that make up the HACK Operating System:
+* Math
+* Memory
+* Screen
+* Output
+* Keyboard
+* String
+* Array
+* Sys

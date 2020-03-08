@@ -34,9 +34,6 @@ class Main {
         let b[0] = c[499] - 90;
         do Memory.poke(8005, b[0]);       // RAM[8005] = 10
         
-        do c.dispose();
-        do b.dispose();
-        
         return;
     }
 }

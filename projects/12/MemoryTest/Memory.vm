@@ -1,0 +1,159 @@
+function Memory.init 0
+push constant 0
+pop static 0
+push constant 2048
+pop static 1
+push constant 2048
+pop static 2
+push constant 0
+push static 1
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push static 1
+add
+push constant 14335
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Memory.peek 0
+push argument 0
+push static 0
+add
+pop pointer 1
+push that 0
+return
+function Memory.poke 0
+push argument 0
+push static 0
+add
+push argument 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Memory.alloc 4
+push constant 0
+pop local 0
+push static 2
+pop local 2
+push argument 0
+push constant 2
+add
+pop local 1
+push constant 0
+pop local 3
+label WHILE_EXP0
+push local 0
+push constant 0
+eq
+push local 3
+not
+and
+not
+if-goto WHILE_END0
+push constant 0
+push local 2
+add
+pop pointer 1
+push that 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 3
+label IF_FALSE0
+push constant 1
+push local 2
+add
+pop pointer 1
+push that 0
+push local 1
+gt
+push constant 1
+push local 2
+add
+pop pointer 1
+push that 0
+push local 1
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 2
+push constant 1
+push local 2
+add
+pop pointer 1
+push that 0
+add
+push argument 0
+sub
+pop local 0
+push local 0
+push constant 1
+sub
+push static 0
+add
+push argument 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push local 2
+add
+push constant 1
+push local 2
+add
+pop pointer 1
+push that 0
+push local 1
+sub
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+goto IF_END1
+label IF_FALSE1
+push constant 0
+push local 2
+add
+pop pointer 1
+push that 0
+pop local 2
+label IF_END1
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return
+function Memory.deAlloc 0
+push argument 0
+push constant 2
+sub
+push static 0
+add
+push static 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push argument 0
+push constant 2
+sub
+pop static 2
+push constant 0
+return

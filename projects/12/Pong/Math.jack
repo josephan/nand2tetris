@@ -9,6 +9,7 @@
  */
 class Math {
   static Array twoToThe;
+  static int qy2, resetY;
 
   /** Initializes the library. */
   function void init() {
@@ -29,6 +30,8 @@ class Math {
     let twoToThe[13] = 8192;
     let twoToThe[14] = 16384;
     let twoToThe[15] = 32767 + 1;
+    let qy2 = 0;
+    let resetY = -1;
     return;
   }
 
@@ -75,8 +78,10 @@ class Math {
    *  the Jack expressions x/y and divide(x,y) return the same value.
    */
   function int divide(int x, int y) {
-    var int q, result;
+    var int q;
     var boolean negX, negY;
+    
+    if (resetY < 0) { let resetY = y; }
 
     let negX = x < 0;
     let negY = y < 0;
@@ -84,36 +89,48 @@ class Math {
     let y = Math.abs(y);
 
     if ((y > x) | (y < 0)) { return 0; }
-    
+
     let q = Math.divide(x, y + y);
 
-    if ((x - (2 * q * y)) < y) {
-      let result = q + q;
+    if ((x - qy2) < y) {
+      if (resetY = y) {
+        let qy2 = 0;
+        let resetY = -1;
+      }
+      return q + q;
     } else {
-      let result = q + q + 1;
-    }
-
-    if (negX = negY) {
-      return result;
-    } else {
-      return -result;
+      if (resetY = y) {
+        let qy2 = 0;
+        let resetY = -1;
+      } else {
+        let qy2 = qy2 + y;
+      }
+      if (negX = negY) {
+        return q + q + 1;
+      } else {
+        return -(q + q + 1);
+      }
     }
   }
 
   /** Returns the integer part of the square root of x. */
   function int sqrt(int x) {
-    var int y, j, yPlus2, yPlus2Sq;
-    let y = 0;
-    let j = 7;
-    while (j > -1) {
-      let yPlus2 = y + twoToThe[j];
-      let yPlus2Sq = yPlus2 * yPlus2;
-      if ((yPlus2Sq > 0) & ((yPlus2Sq < x) | (yPlus2Sq = x))) {
-        let y = yPlus2;
+    var int low, high, mid, mid2;
+    let low = 0;
+    let high = x / 2;
+
+    while (~(mid = low)) {
+      let mid = (low + high) / 2; 
+      let mid2 = mid * mid;
+      if (mid2 = x) { return mid; }
+      if (mid2 > x) {
+        let high = mid;
+      } else {
+        let low = mid;
       }
-      let j = j - 1;
     }
-    return y;
+
+    return low;
   }
 
   /** Returns the greater number. */
